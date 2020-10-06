@@ -70,24 +70,10 @@ class Template
     public function Render( array $variables = [])
     {
         #Find template
-        $template = $this->FindTemplate($variables['Page']);
+        $template = $variables['Page'];
 
         #If template exist render template else return false
         echo ($template !== false) ? $this->RenderTemplate($template, $variables) : false;
-    }
-
-    /**
-     * @fn FindTemplate
-     * @param string $path
-     * @return string
-     */
-    public function FindTemplate(string $path): string
-    {
-        #Create path to file
-        $file = "{$this->folder}{$path}.php";
-
-        #If file exist return path, else return false
-        return (file_exists($file)) ? $file : '';
     }
 
     /**
@@ -108,10 +94,10 @@ class Template
             $_POST[$key] = $value;
         }
 
-        $_POST['body'] = $template;
+        $_POST['body'] = $this->ExtractText($template);
 
         #Load template
-        include($template);
+        require(ROOT.'/public/theme/body.php');
 
         #Return output for echo
         return ob_get_clean();
@@ -151,6 +137,16 @@ class Template
         }
 ;
         return $this->sec->Filter($val,'String');
+    }
+
+    public function ExtractText($alias){
+
+        $alias = $this->sec->Filter($alias,'String');
+
+        $data = $this->db->Select("content",'routes',"alias='{$alias}'")->Fetch();
+
+        return $this->sec->HtmlFilter($data['content']);
+
     }
 
     function SetParam($array)

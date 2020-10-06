@@ -30,7 +30,6 @@ class Preprocessor
     private
         $sec,
         $env,
-        $layout,
         $db;
 
     /**
@@ -44,7 +43,6 @@ class Preprocessor
         $this->db = DB::getInstance();
         $this->sec = Security::getInstance();
         $this->env = Enviroment::getInstance();
-        $this->layout = $this->env->LAYOUT_NAME;
 
         #Set initial config
         $this->SetInit();
@@ -80,7 +78,7 @@ class Preprocessor
         # Set option var values
         $settings = array(
             'minify' => true,
-            'output_dir' => "/public/Layouts/{$this->layout}/css",
+            'output_dir' => "public/theme/css",
             'versioning' => true,
             'vars' => $this->CreateVars()
         );

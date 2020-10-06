@@ -27,6 +27,7 @@ if (!$router->is_ajax()) {
 
 $router->StartRouting();
 
+
 #Import site footer
 if (!$router->is_ajax()) {
     require(ROOT . 'public/footer/footer.php');

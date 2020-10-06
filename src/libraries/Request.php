@@ -305,7 +305,7 @@ class Request
         }
 
         # Get page name
-        $args['Page'] = $this->getPage($route);
+        $args['Page'] = $route;
 
         # Return arguments and page name
         return $args;

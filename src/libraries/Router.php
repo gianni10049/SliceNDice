@@ -122,7 +122,7 @@ class Router
 
         #If position is root
         if ($result === '') {
-            return ($this->account->AccountConnected()) ? '/Lobby' : '/Homepage';
+            return '/Homepage';
         } #Else not is root
         else {
 
