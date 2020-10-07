@@ -1,3 +1,6 @@
+<meta http-equiv="Content-Type" content="text/HTML;"/>
+<meta charset="utf-8" />
+
 <!-- Font Awesome css -->
 <link rel="stylesheet" href="<?= $sec->Version('packages/FontAwesome/css/all.css', '5.11.2'); ?>" type="text/css">
 
@@ -9,3 +12,5 @@
 
 <!-- CUSTOM -->
 <link href="<?= $sec->NoChace($css); ?>" type="text/css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Barlow&display=swap" rel="stylesheet">

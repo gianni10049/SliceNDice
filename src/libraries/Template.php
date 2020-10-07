@@ -103,11 +103,8 @@ class Template
         return ob_get_clean();
     }
 
-    public function MenuList($type){
-
-        $type= $this->sec->Filter($type,'String');
-
-        return $this->db->Select('*','menu',"active='1' AND box='{$type}' AND father_id='0'")->FetchArray();
+    public function MenuList(){
+        return $this->db->Select('*','menu',"active='1' AND father_id='0'")->FetchArray();
     }
 
     public function SubMenuList($father){
@@ -143,9 +140,9 @@ class Template
 
         $alias = $this->sec->Filter($alias,'String');
 
-        $data = $this->db->Select("content",'routes',"alias='{$alias}'")->Fetch();
+        $data = $this->db->Select("content,title",'routes',"alias='{$alias}'")->Fetch();
 
-        return $this->sec->HtmlFilter($data['content']);
+        return ['text'=>$this->sec->HtmlFilter($data['content']),'title'=>$this->sec->Filter($data['title'],'String')];
 
     }
 

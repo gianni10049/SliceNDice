@@ -9,6 +9,8 @@ html {
     color: white;
     padding: 0;
     margin: 0;
+    overflow: auto;
+
 
     a,
     a:link,
@@ -19,10 +21,32 @@ html {
       color: black;
       cursor: pointer;
     }
+
+    p {
+      line-height: 1.75;
+      font-family: "Barlow", arial, helvetica, sans-serif;
+      font-size: 100%;
+    }
   }
 
 
 }
+
+body::-webkit-scrollbar {
+  width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background: #fff;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #cc4a49;
+  outline: none;
+  border-radius: 5px;
+}
+
 
 .equalizer {
   clear: both;
@@ -39,12 +63,10 @@ html {
   margin: 0 auto;
   padding: 0;
   width: 100%;
-  overflow: hidden;
   max-width: 1440px;
   background-color: #fff;
-  height: 100%;
 
-  .header-main{
+  .header-main {
     display: flex;
     flex-wrap: wrap;
     padding-top: 1rem;
@@ -75,13 +97,13 @@ html {
       }
     }
 
-    .primary-menu{
+    .primary-menu {
       display: flex;
       margin-left: auto;
       width: auto;
       align-items: center;
 
-      ul{
+      ul {
         display: -webkit-box;
         display: -ms-flexbox;
         display: flex;
@@ -90,20 +112,64 @@ html {
         margin: 0;
         border-bottom: none;
 
-        li{
+        li {
           position: relative;
           margin: 1rem;
           list-style: none;
+          font-size: 1.0625rem;
+          font-family: "Barlow", arial, helvetica, sans-serif;
+          font-weight: normal;
+          text-transform: none;
+          padding: .8rem 0;
 
-          &:hover{
-            color: #e36355;
+          a {
+            color: black;
 
-            a {
+            &:hover {
               color: #e36355;
+
             }
+
+
           }
         }
       }
+    }
+
+  }
+
+  .header-img {
+    width: 100%;
+    height: 300px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .central-box {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 880px;
+    text-align: center;
+    color: black;
+    padding-bottom: 20px;
+
+    .content-title {
+      margin: 0;
+      padding: 0;
+      color: #cc4a49;
+      -ms-word-wrap: break-word;
+      word-wrap: break-word;
+      font-size: 24px;
+      font-size: 1.5rem;
+      font-family: "Barlow", arial, helvetica, sans-serif;
+      font-weight: bold;
+      text-transform: none;
+      line-height: 1.4;
+      text-align: left;
     }
 
   }
@@ -137,14 +203,14 @@ html {
         }
       }
 
-      .primary-menu ul li{
-        padding: 0.8rem 1rem;
+      .primary-menu ul li {
+        padding: 0.8rem 0rem;
       }
     }
   }
   @media only screen and (min-width: 1280px) {
     .header-main {
-      padding: 3rem 5rem;
+      padding: 2rem 5rem;
 
       .site-branding {
         .site-title {

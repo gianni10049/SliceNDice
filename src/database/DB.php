@@ -65,6 +65,7 @@ class DB
         $this->pass = $env->DB_PASS;
         $this->charset = $env->DB_CHARSET;
 
+
         #Set default option for connection
         $default_options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -124,7 +125,8 @@ class DB
     public function Connect()
     {
         try {
-            $this->pdo = new PDO("mysql:host={$this->host};dbname={$this->db}", $this->user, $this->pass, $this->options);
+            $this->pdo = new PDO("mysql:host={$this->host};dbname={$this->db};charset=' . $this->charset", $this->user, $this->pass, $this->options);
+            $this->pdo->exec('SET NAMES utf8');
         } catch (PDOException $e) {
             die($e->getMessage());
         }
@@ -148,6 +150,7 @@ class DB
 
         #Get connection
         $db = $this->pdo;
+
 
         try {
             # Prepare query

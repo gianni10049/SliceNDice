@@ -1,3 +1,8 @@
+
+<!DOCTYPE html>
+<html lang="it">
+
+
 <?php
 
 #Import namespace
@@ -32,3 +37,6 @@ $router->StartRouting();
 if (!$router->is_ajax()) {
     require(ROOT . 'public/footer/footer.php');
 }
+?>
+</html>
+

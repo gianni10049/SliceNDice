@@ -122,7 +122,7 @@ class Router
 
         #If position is root
         if ($result === '') {
-            return '/Homepage';
+            return '/';
         } #Else not is root
         else {
 
