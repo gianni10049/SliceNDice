@@ -73,7 +73,8 @@ class Router
         $this->request = $request;
     }
 
-    public function StartRouting(){
+    public function StartRouting()
+    {
 
         $method = $this->request->getMethod();
         $uri = $this->request->requestUri;
@@ -81,7 +82,12 @@ class Router
         # Call function for that method
         $this->{$method}($this->formatRoute($uri), function ($args) {
             $tpl = new Template();
-            echo $tpl->Render($args);
+
+            if (!$this->is_ajax()) {
+                echo $tpl->Render($args);
+            } else {
+                echo $tpl->ExecuteAjax($args);
+            }
         });
     }
 
@@ -176,11 +182,10 @@ class Router
 
         $body = $this->request->getBody($formatedRoute);
 
-        if($body['Page'] != false){
+        if ($body['Page'] != false) {
             #Return callback whit passed args
             return call_user_func($method, $this->request->getBody($formatedRoute));
-        }
-        else{
+        } else {
             $this->defaultRequestHandler();
         }
 

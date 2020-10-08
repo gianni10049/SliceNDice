@@ -277,10 +277,10 @@ class Request
         $url = $this->sec->Filter($url, 'String');
 
         # Get file for that alias
-        $data = $this->db->Select('file', 'routes', "alias='{$url}' AND active='1' LIMIT 1")->Fetch();
+        $data = $this->db->Select('page_link', 'routes', "alias='{$url}' AND active='1' LIMIT 1")->Fetch();
 
         # Filter path of the alias
-        $path = $this->sec->Filter($data['file'], 'String');
+        $path = $this->sec->Filter($data['page_link'], 'String');
 
         # Return result
         return $path;

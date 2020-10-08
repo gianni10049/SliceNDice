@@ -27,6 +27,50 @@ html {
       font-family: "Barlow", arial, helvetica, sans-serif;
       font-size: 100%;
     }
+
+    .input_box {
+      box-sizing: border-box;
+      padding: 0.5rem;
+      text-align: center;
+      font-family: "Barlow", arial, helvetica, sans-serif;
+      outline: none;
+
+      h1,h2,h3,h4,h5,h6{
+        padding: 0.2rem;
+        margin: 0.2rem;
+      }
+
+      input[type='text'],
+      input[type='password'],
+      textarea {
+        background: grey;
+        color: white;
+        border: 1px solid black;
+        border-radius: 5px;
+        cursor: pointer;
+        box-sizing: border-box;
+        padding: 3px 5px;
+
+        &:focus {
+          background: lightgrey;
+          color: black;
+        }
+      }
+
+      input[type='submit']{
+        font-family: "Barlow", arial, helvetica, sans-serif;
+        background: grey;
+        color:white;
+        border: 1px solid black;
+        border-radius: 5px;
+        cursor: pointer;
+
+        &:hover{
+          background: lightgrey;
+          color: black;
+        }
+      }
+    }
   }
 
 
@@ -55,7 +99,7 @@ body::-webkit-scrollbar-thumb {
 
 /* endregion */
 
-/* region HOMEPAGE */
+/* region HEADER */
 
 
 .container_page {
@@ -132,6 +176,25 @@ body::-webkit-scrollbar-thumb {
 
 
           }
+
+          .submenu{
+            position: absolute;
+            left: 0;
+            top: 100%;
+            z-index: 99999;
+            padding: 0.5rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: white;
+            white-space: nowrap;
+            list-style: none;
+            display: none;
+
+            .list-group-item{
+              box-sizing: border-box;
+              padding: 1rem;
+              font-size: 1rem;
+            }
+          }
         }
       }
     }
@@ -149,30 +212,6 @@ body::-webkit-scrollbar-thumb {
     }
   }
 
-  .central-box {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 880px;
-    text-align: center;
-    color: black;
-    padding-bottom: 20px;
-
-    .content-title {
-      margin: 0;
-      padding: 0;
-      color: #cc4a49;
-      -ms-word-wrap: break-word;
-      word-wrap: break-word;
-      font-size: 24px;
-      font-size: 1.5rem;
-      font-family: "Barlow", arial, helvetica, sans-serif;
-      font-weight: bold;
-      text-transform: none;
-      line-height: 1.4;
-      text-align: left;
-    }
-
-  }
 
   @media only screen and (min-width: 480px) {
 
@@ -224,6 +263,38 @@ body::-webkit-scrollbar-thumb {
 
 }
 
+
+/*endregion*/
+
+/*region CONTENT */
+
+.container_page{
+
+  .central-box {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 880px;
+    text-align: center;
+    color: black;
+    padding-bottom: 20px;
+
+    .content-title {
+      margin: 0;
+      padding: 0;
+      color: #cc4a49;
+      -ms-word-wrap: break-word;
+      word-wrap: break-word;
+      font-size: 24px;
+      font-size: 1.5rem;
+      font-family: "Barlow", arial, helvetica, sans-serif;
+      font-weight: bold;
+      text-transform: none;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+  }
+}
 
 /*endregion*/
 

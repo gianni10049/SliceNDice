@@ -1,4 +1,3 @@
-
 <!-- FONT AWESOME JS -->
 <script type="text/javascript" src="<?= $sec->Version('packages/FontAwesome/js/all.js', '5.10.1'); ?>"></script>
 

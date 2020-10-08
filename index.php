@@ -1,7 +1,4 @@
 
-<!DOCTYPE html>
-<html lang="it">
-
 
 <?php
 
@@ -38,5 +35,3 @@ if (!$router->is_ajax()) {
     require(ROOT . 'public/footer/footer.php');
 }
 ?>
-</html>
-

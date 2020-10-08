@@ -107,75 +107,52 @@ class Template
         return $this->db->Select('*','menu',"active='1' AND father_id='0'")->FetchArray();
     }
 
+    public function MenuHaveSub($id){
+
+        $id= $this->sec->Filter($id,'Int');
+
+        $contr = $this->db->Count('menu',"father_id='{$id}' AND active='1'");
+
+        return ($contr > 0);
+    }
+
     public function SubMenuList($father){
 
         $father= $this->sec->Filter($father,'String');
 
-        return $this->db->Select('*','menu',"active='1' AND father_id='{$father}'")->FetchArray();
-    }
-
-    public function GetContainerForLinks($type){
-
-        $type = $this->sec->Filter($type,'String');
-
-        switch ($type){
-            case 'central':
-                $val = 'container_central';
-                break;
-            case 'body':
-                $val = 'container_body';
-                break;
-            case 'card-complete':
-                $val = 'complete';
-                break;
-            case 'card-internal':
-                $val = 'internal';
-                break;
-        }
-;
-        return $this->sec->Filter($val,'String');
+        return $this->db->Select('*','menu',"active='1' AND father_id='{$father}' ORDER BY text")->FetchArray();
     }
 
     public function ExtractText($alias){
 
         $alias = $this->sec->Filter($alias,'String');
 
-        $data = $this->db->Select("content,title",'routes',"alias='{$alias}'")->Fetch();
+        $data = $this->db->Select("content,title,page_link",'routes',"alias='{$alias}'")->Fetch();
 
-        return ['text'=>$this->sec->HtmlFilter($data['content']),'title'=>$this->sec->Filter($data['title'],'String')];
+        $title= $this->sec->Filter($data['title'],'String');
+
+        if(is_null($data['page_link'])){
+            $content = $this->sec->HtmlFilter($data['content']);
+            $is_link = false;
+        }
+        else{
+            $content=$this->sec->Filter($data['page_link'],'String');
+            $is_link = true;
+        }
+
+        return ['text'=>$content,'is_link'=>$is_link,'title'=>$title];
 
     }
 
-    function SetParam($array)
-    {
+    public function ExecuteAjax($args){
 
-        #  $array = ['character' => 2, 'page' => 'prova.php', 'testo' => 'titolo a caso'];
+        $alias = $this->sec->Filter($args['Page'],'String');
 
-        $input = '{"character":"character_id","page":"page_id","text":"text_id"}'; #Extracted from DB
+        $data= $this->db->Select('page_link','routes',"alias='{$alias}'")->Fetch();
 
-        $data = (array)json_decode($input);
+        $page = $this->sec->Filter($data['page_link'],'String');
 
-        foreach ($array as $index => $value) {
-            $data[$index] = $value;
-        }
+        require ROOT.'/public/theme/Ajax'.$page;
 
-        return $data;
-    }
-
-    function modifyParam($input){
-        # $input = (string)'character,page,text';
-
-        $data = explode(',', $input);
-
-        $array_data = [];
-
-        foreach ($data as $sub_data) {
-            $val = $sub_data . '_id';
-            $array_data[$sub_data] = $val;
-        }
-
-        $res = json_encode($array_data);
-
-        return $res;
     }
 }

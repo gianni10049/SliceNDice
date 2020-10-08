@@ -8,8 +8,9 @@ use Libraries\Template;
 $tpl = new Template();
 $sec = Security::getInstance();
 
+
 if(!empty($_POST['body']['text'])){
-    $content = $sec->HtmlFilter($_POST['body']['text']);
+    $content = ($_POST['body']['is_link']) ?  $sec->Filter($_POST['body']['text'],'String') : $sec->HtmlFilter($_POST['body']['text']);
     $title = $sec->Filter($_POST['body']['title'],'Special');
 } else{
     $content = '';
@@ -45,11 +46,12 @@ if(!empty($_POST['body']['text'])){
         </div>
 
         <div class="content-box">
-            <?= $content ?>
+            <?php if(!$_POST['body']['is_link']) {
+                echo $content;
+            }else{
+                require(ROOT.'/public/theme/view/'.$content);
+            } ?>
         </div>
 
     </div>
 </div>
-
-
-<script src="/public/Layouts/mono-column-left/body.js"></script>

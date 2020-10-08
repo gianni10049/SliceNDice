@@ -1,6 +1,7 @@
 {
   "require": {
     "css-crush/css-crush": "^3.0",
-    "vlucas/phpdotenv": "^5.2"
+    "vlucas/phpdotenv": "^5.2",
+    "needim/noty": "^3.1"
   }
 }

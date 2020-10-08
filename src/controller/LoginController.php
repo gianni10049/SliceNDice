@@ -4,7 +4,6 @@ namespace Controllers;
 
 use Libraries\Request,
     Libraries\Security,
-    Controllers\CharacterController,
     Models\Login,
     Models\Config,
     Models\Account;
@@ -51,7 +50,6 @@ class LoginController
         $this->login_model = Login::getInstance();
         $this->config = Config::getInstance();
         $this->account = AccountController::getInstance();
-        $this->character = CharacterController::getInstance();
     }
 
 
@@ -76,9 +74,9 @@ class LoginController
      * @note Authenticate user credentials for Login
      * @param string $username
      * @param string $credential
-     * @return int
+     * @return string
      */
-    public function authenticate(string $username, string $credential): int
+    public function authenticate(string $username, string $credential): string
     {
 
         #Filter entered data
@@ -87,10 +85,10 @@ class LoginController
 
         #If one of the field are empty or not isset
         if ((!isset($username) || empty($username)) || (!isset($credential) || empty($credential))) {
-            return LOGIN_EMPTY_VALUES;
+            $code = LOGIN_EMPTY_VALUES;
         } #Else if the user have reached the max attempts for login
         else if ($this->login_model->countAttempts($this->request->getIpAddress(),$username) >= $this->config->login_max_attempts) {
-            return LOGIN_MAX_ATTEMPTS;
+            $code = LOGIN_MAX_ATTEMPTS;
         }
 
         #Read data of the user from the DB
@@ -116,11 +114,8 @@ class LoginController
                 $this->account->RegenerateFingerprint($session->id);
                 $this->account->CreateLastActive();
 
-                # Set favorite character
-                $this->character->LoginFavorite($session->id);
-
                 #Return true
-                return LOGIN_SUCCESS;
+                $code = LOGIN_SUCCESS;
 
             } #Else the user credentials are wrong
             else {
@@ -131,7 +126,7 @@ class LoginController
                 $this->login_model->insertError($error, $this->request->getIPAddress(),$username);
 
                 #Die whit error
-                return LOGIN_PASSWORD_ERROR;
+                $code = LOGIN_PASSWORD_ERROR;
             }
         } #Else the user not exist
         else {
@@ -142,8 +137,10 @@ class LoginController
             $this->login_model->insertError($error, $this->request->getIPAddress(),$username);
 
             #Die whit error
-            return LOGIN_USERNAME_ERROR;
+            $code=  LOGIN_USERNAME_ERROR;
         }
+
+        return $this->ManageError($code);
     }
 
     /**
